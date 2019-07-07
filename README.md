@@ -1,2 +1,14 @@
-# auri
+auri
+====
 an utility for downloading and installing software packages from AUR
+
+usage
+-----
+
+```
+help      shows help
+fetch     fetches package
+install   installs package
+get       fetches and installs the package
+clean     cleans temporary files
+```

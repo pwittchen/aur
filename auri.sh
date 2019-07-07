@@ -2,7 +2,7 @@
 
 function help() {
   echo "
-       auri is an utility for downloading and installing software packages from AUR
+       auri is an utility for downloading and installing software packages from aur
        
        usage:
 
@@ -10,6 +10,7 @@ function help() {
        search    searches package
        fetch     fetches package
        install   installs package
+       get       fetches and installs the package
        clean     cleans temporary files
        "
 }
@@ -61,7 +62,15 @@ function install() {
   fi
 
   echo "installing package $1"
-  #todo: implement
+  if [ ! -d "/tmp/auri/$1" ] ; then
+    echo "package is not fetched!"
+    exit
+  fi
+
+  cd "/tmp/auri/$1"
+  makepkg -si
+  cd -
+  echo "done"
 }
 
 function clean() {
@@ -85,6 +94,10 @@ function main() {
   if [ "$1" == "install" ] ; then
     install $2
     exit
+  fi
+  if [ "$1" == "get" ] ; then
+    fetch $2
+    install $2
   fi
   if [ "$1" == "clean" ] ; then
     clean
