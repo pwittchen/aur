@@ -18,13 +18,13 @@ uninstallation
 --------------
 
 ```
-sudo rm /usr/local/bin/auri
+sudo rm /usr/local/bin/aur
 ```
 
 usage
 -----
 
-type `auri` command with one of the following parameters
+type `aur` command with one of the following parameters
 
 ```
 help      shows help
