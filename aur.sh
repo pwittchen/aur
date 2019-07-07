@@ -2,7 +2,7 @@
 
 function help() {
   echo "
-       auri is an utility for downloading and installing software packages from aur
+       aur is an utility for downloading and installing software packages from aur
        
        usage:
 
