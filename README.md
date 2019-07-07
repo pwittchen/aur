@@ -4,9 +4,7 @@ an utility for downloading and installing software packages from [aur](https://a
 
 requirements
 ------------
-- `curl`
-- `jq`
-- `git`
+`curl`, `jq`, `git`
 
 installation
 ------------
