@@ -1,46 +1,63 @@
 #!/usr/bin/env bash
 
-function showHelp() {
+function help() {
   echo "
        auri is a utility for downloading and installing software packages from AUR
        
        usage:
-       -h      shows help
-       -s      searches package
-       -f      fetches package
-       -i      installs package
+       help      shows help
+       search    searches package
+       fetch     fetches package
+       install   installs package
        "
 }
 
 function search() {
-  echo "search"
+  if [ -z "$1" ]; then
+    echo "you haven't provided package name!"
+    exit
+  fi
+
+  echo "searching for a package $1"
 }
 
 function fetch() {
-  echo "fetch"
+  if [ -z "$1" ]; then
+    echo "you haven't provided package name!"
+    exit
+  fi
+
+  echo "fetching package $1"
 }
 
 function install() {
-  echo "install"
+  if [ -z "$1" ]; then
+    echo "you haven't provided package name!"
+    exit
+  fi
+
+  echo "installing package $1"
 }
 
-OPTIND=1 # reset in case getopts has been used previously in the shell.
+function main() {
+  if [ -z "$1" ] || [ "$1" == "help" ] ; then
+    help 
+    exit
+  fi
+  if [ "$1" == "search" ] ; then
+    search $2
+    exit
+  fi
+  if [ "$1" == "fetch" ] ; then
+    fetch $2
+    exit
+  fi
+  if [ "$1" == "install" ] ; then
+    install $2
+    exit
+  else
+    echo "wrong argument: $1"
+  fi
+}
 
-while getopts "hsfi" opt; do
-    case "$opt" in
-    h)
-        showHelp
-        exit 0
-        ;;
-    s)  search
-		;;
-    f)  fetch
-        ;;
-    i)  install
-        ;;
-    esac
-done
-
- shift $((OPTIND-1))
-
-[ "$1" = "--" ] && shift
+main "$@"
