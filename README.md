@@ -1,5 +1,5 @@
-auri
-====
+aur
+===
 an utility for downloading and installing software packages from [aur](https://aur.archlinux.org/)
 
 requirements
