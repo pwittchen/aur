@@ -9,6 +9,7 @@ function help() {
        search    searches package
        fetch     fetches package
        install   installs package
+       clean     cleans temporary files
        "
 }
 
@@ -59,6 +60,12 @@ function install() {
   fi
 
   echo "installing package $1"
+  #todo: implement
+}
+
+function clean() {
+  echo "cleaning temporary files"
+  rm -rf /tmp/auri || true
 }
 
 function main() {
@@ -76,6 +83,10 @@ function main() {
   fi
   if [ "$1" == "install" ] ; then
     install $2
+    exit
+  fi
+  if [ "$1" == "clean" ] ; then
+    clean
     exit
   else
     echo "wrong argument: $1"
