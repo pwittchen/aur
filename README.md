@@ -14,6 +14,13 @@ installation
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/pwittchen/auri/master/install.sh)"
 ```
 
+uninstallation
+--------------
+
+```
+sudo rm /usr/local/bin/auri
+```
+
 usage
 -----
 
