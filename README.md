@@ -6,6 +6,7 @@ requirements
 ------------
 - `curl`
 - `jq`
+- `git`
 
 installation
 ------------
