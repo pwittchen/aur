@@ -34,7 +34,6 @@ function search() {
         echo $i | sed -e 's/^"//' -e 's/"$//'
     done
   fi
-  echo "done"
 }
 
 function fetch() {
