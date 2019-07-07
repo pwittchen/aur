@@ -1,6 +1,6 @@
 aur
 ===
-an utility for downloading and installing software packages from [aur](https://aur.archlinux.org/)
+simple script for downloading and installing software packages from [aur](https://aur.archlinux.org/) (aur helper)
 
 requirements
 ------------
