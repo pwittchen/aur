@@ -98,6 +98,7 @@ function main() {
   if [ "$1" == "get" ] ; then
     fetch $2
     install $2
+    exit
   fi
   if [ "$1" == "clean" ] ; then
     clean
