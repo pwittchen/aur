@@ -5,7 +5,9 @@ an utility for downloading and installing software packages from AUR
 installation
 ------------
 
-TBD.
+```
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/pwittchen/auri/master/install.sh)"
+```
 
 usage
 -----
