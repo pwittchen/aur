@@ -4,8 +4,8 @@ an utility for downloading and installing software packages from aur
 
 requirements
 ------------
-- curl
-- jq
+- `curl`
+- `jq`
 
 installation
 ------------
