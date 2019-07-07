@@ -34,6 +34,7 @@ function search() {
         echo $i | sed -e 's/^"//' -e 's/"$//'
     done
   fi
+  echo "done"
 }
 
 function fetch() {
@@ -76,6 +77,7 @@ function install() {
 function clean() {
   echo "cleaning temporary files"
   rm -rf /tmp/auri || true
+  echo "done"
 }
 
 function main() {
