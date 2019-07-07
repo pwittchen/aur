@@ -11,7 +11,7 @@ installation
 ------------
 
 ```
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/pwittchen/auri/master/install.sh)"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/pwittchen/aur/master/install.sh)"
 ```
 
 uninstallation
