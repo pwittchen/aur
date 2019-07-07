@@ -50,8 +50,8 @@ function fetch() {
     exit
   fi
 
-  mkdir -p "/tmp/auri/$1"
-  git clone "https://aur.archlinux.org/$1.git" "/tmp/auri/$1"
+  mkdir -p "/tmp/aur/$1"
+  git clone "https://aur.archlinux.org/$1.git" "/tmp/aur/$1"
   echo "done"
 }
 
@@ -62,23 +62,23 @@ function install() {
   fi
 
   echo "checking package $1"
-  if [ ! -d "/tmp/auri/$1" ] ; then
+  if [ ! -d "/tmp/aur/$1" ] ; then
     echo "package is not fetched!"
     exit
   fi
 
   echo "installing package"
-  cd "/tmp/auri/$1"
+  cd "/tmp/aur/$1"
   makepkg -si
   cd -
   echo "cleaning installation files"
-  rm -rf "/tmp/auri/$1"
+  rm -rf "/tmp/aur/$1"
   echo "done"
 }
 
 function clean() {
   echo "cleaning temporary files"
-  rm -rf /tmp/auri || true
+  rm -rf /tmp/aur || true
   echo "done"
 }
 
