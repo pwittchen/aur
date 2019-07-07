@@ -36,6 +36,7 @@ type `aur` command with one of the following parameters
 ```
 help      shows help
 search    searches for a package
+newest    shows newest packages
 fetch     fetches a package
 install   installs a package
 get       fetches and installs the package

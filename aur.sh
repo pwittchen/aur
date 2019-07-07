@@ -8,6 +8,7 @@ function help() {
 
        help      shows help
        search    searches for a package
+       newest    shows newest packages
        fetch     fetches a package
        install   installs a package
        get       fetches and installs the package
@@ -34,6 +35,11 @@ function search() {
         echo $i | sed -e 's/^"//' -e 's/"$//'
     done
   fi
+}
+
+function newest() {
+  echo "showing newest packages:"
+  curl 'https://aur.archlinux.org/rss/' -s | grep title | tail -n +3 | sed 's/<[^>]*>//g' | sed 's/ //g'
 }
 
 function fetch() {
@@ -90,6 +96,10 @@ function main() {
   fi
   if [ "$1" == "search" ] ; then
     search $2
+    exit
+  fi
+  if [ "$1" == "newest" ] ; then
+    newest
     exit
   fi
   if [ "$1" == "fetch" ] ; then
