@@ -38,5 +38,5 @@ clean     cleans temporary files
 **example**
 
 ```
-auri get urlview-git
+aur get urlview-git
 ```
