@@ -61,15 +61,18 @@ function install() {
     exit
   fi
 
-  echo "installing package $1"
+  echo "checking package $1"
   if [ ! -d "/tmp/auri/$1" ] ; then
     echo "package is not fetched!"
     exit
   fi
 
+  echo "installing package"
   cd "/tmp/auri/$1"
   makepkg -si
   cd -
+  echo "cleaning installation files"
+  rm -rf "/tmp/auri/$1"
   echo "done"
 }
 
