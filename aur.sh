@@ -67,12 +67,13 @@ function install() {
     exit
   fi
 
-  echo "installing package"
+  echo "installing package $1"
   cd "/tmp/aur/$1"
   makepkg -si
   cd -
   echo "cleaning installation files"
   rm -rf "/tmp/aur/$1"
+  echo "$1 installed"
   echo "done"
 }
 
