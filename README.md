@@ -14,6 +14,14 @@ installation
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/pwittchen/aur/master/install.sh)"
 ```
 
+or
+
+```
+git clone https://github.com/pwittchen/aur.git
+cd aur
+cp aur.sh /usr/local/bin/aur
+```
+
 uninstallation
 --------------
 
