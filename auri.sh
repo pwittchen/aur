@@ -7,9 +7,9 @@ function help() {
        usage:
 
        help      shows help
-       search    searches package
-       fetch     fetches package
-       install   installs package
+       search    searches for a package
+       fetch     fetches a package
+       install   installs a package
        get       fetches and installs the package
        clean     cleans temporary files
        "
