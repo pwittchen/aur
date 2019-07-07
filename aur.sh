@@ -18,11 +18,11 @@ function help() {
 
 function search() {
   if [ -z "$1" ] ; then
-    echo "you haven't provided package name!"
+    echo "you haven't provided a package name!"
     exit
   fi
 
-  echo "searching for a package $1"
+  echo "searching for the package $1"
   output=$(curl "https://aur.archlinux.org/rpc?type=suggest&arg=$1" -s | jq '.[]')
   if [ -z "$output" ] ; then
     echo "nothing was found"
@@ -38,7 +38,7 @@ function search() {
 }
 
 function newest() {
-  echo "showing newest packages:"
+  echo "newest packages:"
   curl 'https://aur.archlinux.org/rss/' -s | grep title | tail -n +3 | sed 's/<[^>]*>//g' | sed 's/ //g'
 }
 
@@ -52,7 +52,7 @@ function fetch() {
   output=$(curl "https://aur.archlinux.org/rpc?type=suggest&arg=$1" -s | jq '.[]')
 
   if [ -z "$output" ] ; then
-    echo "there's not such package in aur"
+    echo "there's no such package in aur"
     exit
   fi
 
