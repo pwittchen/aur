@@ -34,3 +34,9 @@ install   installs a package
 get       fetches and installs the package
 clean     cleans temporary files
 ```
+
+**example**
+
+```
+auri fetch urlview-git
+```
