@@ -2,7 +2,7 @@
 
 function help() {
   echo "
-       aur is an utility for downloading and installing software packages from aur
+       aur is a simple script for downloading and installing software packages from aur (aur helper)
        
        usage:
 
