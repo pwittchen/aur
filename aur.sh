@@ -84,7 +84,9 @@ function install() {
 
 function remove() {
   validate_package_not_empty $1
+  echo "removing $1"
   sudo pacman -Rns $1
+  echo "done"
 }
 
 function clean() {
