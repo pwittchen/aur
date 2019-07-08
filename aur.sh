@@ -10,7 +10,7 @@ function validate_package_not_empty {
   fi
 }
 
-function validate_package_exists_on_aur {
+function validate_package_exists_in_suggestions {
   echo "searching for the package $1"
   output=$(curl "$AUR_URL/rpc?type=suggest&arg=$1" -s | jq '.[]')
   if [ -z "$output" ] ; then
@@ -19,9 +19,25 @@ function validate_package_exists_on_aur {
   fi
 }
 
+function validate_package_exists_on_aur {
+  output=$(curl "$AUR_URL/cgit/aur.git/plain/PKGBUILD?h=$1" -s)
+  if [[ $output == *"Invalid branch"* ]] ; then
+    echo "package $1 does not exist on aur"
+    exit
+  fi
+}
+
 function validate_package_is_fetched {
   if [ ! -d "$TMP_DIR/$1" ] ; then
     echo "package is not fetched!"
+    exit
+  fi
+}
+
+function validate_package_has_pkgbuild {
+  if [ ! -f "$TMP_DIR/$1/PKGBUILD" ] ; then
+    echo "PKBUILD was not found in fetched directory"
+    echo "process failed"
     exit
   fi
 }
@@ -46,7 +62,7 @@ function help {
 
 function search {
   validate_package_not_empty $1
-  validate_package_exists_on_aur $1
+  validate_package_exists_in_suggestions $1
   echo "the following candidates were found:"
   output_array=($output)
   for i in "${output_array[@]}"
@@ -76,22 +92,15 @@ function fetch {
   rm -rf "$TMP_DIR/$1" || true
   mkdir -p "$TMP_DIR/$1"
   git clone "$AUR_URL/$1.git" "$TMP_DIR/$1"
-
-  if [ ! -f "$TMP_DIR/$1/PKGBUILD" ] ; then
-    echo "PKBUILD was not found in fetched directory because package $1 doesn't exist on aur"
-    echo "cleaning temporary directory"
-    rm -rf "$TMP_DIR/$1"
-    echo "fetching failed"
-    exit
-  else
-    echo "done"
-  fi
+  validate_package_has_pkgbuild $1
+  echo "done"
 }
 
 function install {
   validate_package_not_empty $1
   validate_package_is_fetched $1
   echo "installing package $1"
+  validate_package_has_pkgbuild $1
   cd "$TMP_DIR/$1"
   makepkg -si
   cd -
