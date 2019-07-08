@@ -82,6 +82,7 @@ function fetch {
     echo "cleaning temporary directory"
     rm -rf "$TMP_DIR/$1"
     echo "fetching failed"
+    exit
   else
     echo "done"
   fi
