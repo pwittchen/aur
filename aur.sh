@@ -44,7 +44,7 @@ function validate_package_has_pkgbuild {
 
 function help {
   echo "
-       aur is a simple script for downloading and installing software packages from aur (aur helper)
+       aur is a script for downloading and installing packages from aur.archlinux.org
 
        usage:
 
