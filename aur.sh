@@ -99,8 +99,8 @@ function fetch {
 function install {
   validate_package_not_empty $1
   validate_package_is_fetched $1
-  echo "installing package $1"
   validate_package_has_pkgbuild $1
+  echo "installing package $1"
   cd "$TMP_DIR/$1"
   makepkg -si
   cd -
