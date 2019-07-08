@@ -1,15 +1,30 @@
 #!/usr/bin/env bash
 
 AUR_URL="https://aur.archlinux.org"
-TMP_DIR="/tmp/aur/"
+TMP_DIR="/tmp/aur"
 
-function validate_package_name() {
+function validate_package_not_empty() {
   if [ -z "$1" ] ; then
     echo "you haven't provided a package name!"
     exit
   fi
 }
 
+function validate_package_exists_on_aur() {
+  echo "searching for the package $1"
+  output=$(curl "$AUR_URL/rpc?type=suggest&arg=$1" -s | jq '.[]')
+  if [ -z "$output" ] ; then
+    echo "nothing was found"
+    exit
+  fi
+}
+
+function validate_package_is_fetched() {
+  if [ ! -d "$TMP_DIR/$1" ] ; then
+    echo "package is not fetched!"
+    exit
+  fi
+}
 
 function help() {
   echo "
@@ -28,14 +43,8 @@ function help() {
 }
 
 function search() {
-  validate_package_name $1
-  echo "searching for the package $1"
-  output=$(curl "$AUR_URL/rpc?type=suggest&arg=$1" -s | jq '.[]')
-  if [ -z "$output" ] ; then
-    echo "nothing was found"
-    exit
-  fi
-
+  validate_package_not_empty $1
+  validate_package_exists_on_aur $1
   echo "the following candidates were found:"
   output_array=($output)
   for i in "${output_array[@]}"
@@ -51,15 +60,8 @@ function newest() {
 }
 
 function fetch() {
-  validate_package_name $1
-  echo "searching for the package $1"
-  output=$(curl "$AUR_URL/rpc?type=suggest&arg=$1" -s | jq '.[]')
-
-  if [ -z "$output" ] ; then
-    echo "nothing was found"
-    exit
-  fi
-
+  validate_package_not_empty $1
+  validate_package_exists_on_aur $1
   echo "fetching the package $1"
   mkdir -p "$TMP_DIR/$1"
   git clone "$AUR_URL/$1.git" "$TMP_DIR/$1"
@@ -67,13 +69,8 @@ function fetch() {
 }
 
 function install() {
-  validate_package_name $1
-  echo "checking package $1"
-  if [ ! -d "$TMP_DIR/$1" ] ; then
-    echo "package is not fetched!"
-    exit
-  fi
-
+  validate_package_not_empty $1
+  validate_package_is_fetched $1
   echo "installing package $1"
   cd "$TMP_DIR/$1"
   makepkg -si
