@@ -38,6 +38,7 @@ function help() {
        fetch     fetches a package
        install   installs a package
        get       fetches and installs the package
+       remove    removes installed package via pacman
        clean     cleans temporary files
        "
 }
@@ -81,6 +82,11 @@ function install() {
   echo "done"
 }
 
+function remove() {
+  validate_package_not_empty $1
+  sudo pacman -Rns $1
+}
+
 function clean() {
   echo "cleaning temporary files"
   rm -rf $TMP_DIR || true
@@ -111,6 +117,10 @@ function main() {
   if [ "$1" == "get" ] ; then
     fetch $2
     install $2
+    exit
+  fi
+  if [ "$1" == "remove" ] ; then
+    remove $2
     exit
   fi
   if [ "$1" == "clean" ] ; then

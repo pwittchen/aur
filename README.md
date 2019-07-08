@@ -40,6 +40,7 @@ newest    shows newest packages
 fetch     fetches a package
 install   installs a package
 get       fetches and installs the package
+remove    removes installed package via pacman
 clean     cleans temporary files
 ```
 
