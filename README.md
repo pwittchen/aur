@@ -36,6 +36,7 @@ type `aur` command with one of the following parameters
 ```
 help      shows help
 search    searches for a package
+pkg       shows contents of PKGBUILD file of the package
 newest    shows newest packages
 fetch     fetches a package
 install   installs a package

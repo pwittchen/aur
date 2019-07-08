@@ -34,6 +34,7 @@ function help {
 
        help      shows help
        search    searches for a package
+       pkg       shows contents of PKGBUILD file of the package
        newest    shows newest packages
        fetch     fetches a package
        install   installs a package
@@ -53,6 +54,14 @@ function search {
       :
       echo $i | sed -e 's/^"//' -e 's/"$//'
   done
+}
+
+function pkg {
+  validate_package_not_empty $1
+  validate_package_exists_on_aur $1
+  echo "contents of PKGBUILD for $1:"
+  echo ""
+  curl "$AUR_URL/cgit/aur.git/plain/PKGBUILD?h=$1" -s
 }
 
 function newest {
@@ -102,6 +111,10 @@ function main {
   fi
   if [ "$1" == "search" ] ; then
     search $2
+    exit
+  fi
+  if [ "$1" == "pkg" ] ; then
+    pkg $2
     exit
   fi
   if [ "$1" == "newest" ] ; then
