@@ -3,14 +3,14 @@
 AUR_URL="https://aur.archlinux.org"
 TMP_DIR="/tmp/aur"
 
-function validate_package_not_empty() {
+function validate_package_not_empty {
   if [ -z "$1" ] ; then
     echo "you haven't provided a package name!"
     exit
   fi
 }
 
-function validate_package_exists_on_aur() {
+function validate_package_exists_on_aur {
   echo "searching for the package $1"
   output=$(curl "$AUR_URL/rpc?type=suggest&arg=$1" -s | jq '.[]')
   if [ -z "$output" ] ; then
@@ -19,14 +19,14 @@ function validate_package_exists_on_aur() {
   fi
 }
 
-function validate_package_is_fetched() {
+function validate_package_is_fetched {
   if [ ! -d "$TMP_DIR/$1" ] ; then
     echo "package is not fetched!"
     exit
   fi
 }
 
-function help() {
+function help {
   echo "
        aur is a simple script for downloading and installing software packages from aur (aur helper)
        
@@ -43,7 +43,7 @@ function help() {
        "
 }
 
-function search() {
+function search {
   validate_package_not_empty $1
   validate_package_exists_on_aur $1
   echo "the following candidates were found:"
@@ -55,12 +55,12 @@ function search() {
   done
 }
 
-function newest() {
+function newest {
   echo "newest packages:"
   curl "$AUR_URL/rss/" -s | grep title | tail -n +3 | sed 's/<[^>]*>//g' | sed 's/ //g'
 }
 
-function fetch() {
+function fetch {
   validate_package_not_empty $1
   validate_package_exists_on_aur $1
   echo "fetching the package $1"
@@ -69,7 +69,7 @@ function fetch() {
   echo "done"
 }
 
-function install() {
+function install {
   validate_package_not_empty $1
   validate_package_is_fetched $1
   echo "installing package $1"
@@ -82,20 +82,20 @@ function install() {
   echo "done"
 }
 
-function remove() {
+function remove {
   validate_package_not_empty $1
   echo "removing $1"
   sudo pacman -Rns $1
   echo "done"
 }
 
-function clean() {
+function clean {
   echo "cleaning temporary files"
   rm -rf $TMP_DIR || true
   echo "done"
 }
 
-function main() {
+function main {
   if [ -z "$1" ] || [ "$1" == "help" ] ; then
     help 
     exit
