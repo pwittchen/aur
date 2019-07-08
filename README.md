@@ -18,7 +18,7 @@ or
 ```
 git clone https://github.com/pwittchen/aur.git
 cd aur
-cp aur.sh /usr/local/bin/aur
+sudo cp aur.sh /usr/local/bin/aur
 ```
 
 uninstallation
