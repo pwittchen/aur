@@ -52,7 +52,7 @@ function fetch() {
   output=$(curl "https://aur.archlinux.org/rpc?type=suggest&arg=$1" -s | jq '.[]')
 
   if [ -z "$output" ] ; then
-    echo "there's no such package in aur"
+    echo "nothing was found"
     exit
   fi
 
