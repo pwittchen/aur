@@ -2,6 +2,8 @@ aur.sh
 ======
 simple script for downloading and installing software packages from [aur](https://aur.archlinux.org/) (aur helper)
 
+this tool doesn't have any dependency resolving mechanism yet
+
 requirements
 ------------
 `curl`, `jq`, `sed`, `git`
