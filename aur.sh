@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+AUR_URL="https://aur.archlinux.org"
+TMP_DIR="/tmp/aur/"
+
 function help() {
   echo "
        aur is a simple script for downloading and installing software packages from aur (aur helper)
@@ -23,7 +26,7 @@ function search() {
   fi
 
   echo "searching for the package $1"
-  output=$(curl "https://aur.archlinux.org/rpc?type=suggest&arg=$1" -s | jq '.[]')
+  output=$(curl "$AUR_URL/rpc?type=suggest&arg=$1" -s | jq '.[]')
   if [ -z "$output" ] ; then
     echo "nothing was found"
   else
@@ -39,7 +42,7 @@ function search() {
 
 function newest() {
   echo "newest packages:"
-  curl 'https://aur.archlinux.org/rss/' -s | grep title | tail -n +3 | sed 's/<[^>]*>//g' | sed 's/ //g'
+  curl "$AUR_URL/rss/" -s | grep title | tail -n +3 | sed 's/<[^>]*>//g' | sed 's/ //g'
 }
 
 function fetch() {
@@ -49,7 +52,7 @@ function fetch() {
   fi
 
   echo "searching for the package $1"
-  output=$(curl "https://aur.archlinux.org/rpc?type=suggest&arg=$1" -s | jq '.[]')
+  output=$(curl "$AUR_URL/rpc?type=suggest&arg=$1" -s | jq '.[]')
 
   if [ -z "$output" ] ; then
     echo "nothing was found"
@@ -57,8 +60,8 @@ function fetch() {
   fi
 
   echo "fetching the package $1"
-  mkdir -p "/tmp/aur/$1"
-  git clone "https://aur.archlinux.org/$1.git" "/tmp/aur/$1"
+  mkdir -p "$TMP_DIR/$1"
+  git clone "$AUR_URL/$1.git" "$TMP_DIR/$1"
   echo "done"
 }
 
@@ -69,24 +72,24 @@ function install() {
   fi
 
   echo "checking package $1"
-  if [ ! -d "/tmp/aur/$1" ] ; then
+  if [ ! -d "$TMP_DIR/$1" ] ; then
     echo "package is not fetched!"
     exit
   fi
 
   echo "installing package $1"
-  cd "/tmp/aur/$1"
+  cd "$TMP_DIR/$1"
   makepkg -si
   cd -
   echo "cleaning installation files"
-  rm -rf "/tmp/aur/$1"
+  rm -rf "$TMP_DIR/$1"
   echo "$1 installed"
   echo "done"
 }
 
 function clean() {
   echo "cleaning temporary files"
-  rm -rf /tmp/aur || true
+  rm -rf $TMP_DIR || true
   echo "done"
 }
 
