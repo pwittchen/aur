@@ -29,7 +29,7 @@ function validate_package_is_fetched {
 function help {
   echo "
        aur is a simple script for downloading and installing software packages from aur (aur helper)
-       
+
        usage:
 
        help      shows help
@@ -73,9 +73,18 @@ function fetch {
   validate_package_not_empty $1
   validate_package_exists_on_aur $1
   echo "fetching the package $1"
+  rm -rf "$TMP_DIR/$1" || true
   mkdir -p "$TMP_DIR/$1"
   git clone "$AUR_URL/$1.git" "$TMP_DIR/$1"
-  echo "done"
+
+  if [ ! -f "$TMP_DIR/$1/PKGBUILD" ] ; then
+    echo "PKBUILD was not found in fetched directory because package $1 doesn't exist on aur"
+    echo "cleaning temporary directory"
+    rm -rf "$TMP_DIR/$1"
+    echo "fetching failed"
+  else
+    echo "done"
+  fi
 }
 
 function install {
