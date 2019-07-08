@@ -48,7 +48,7 @@ function fetch() {
     exit
   fi
 
-  echo "fetching package $1"
+  echo "searching for the package $1"
   output=$(curl "https://aur.archlinux.org/rpc?type=suggest&arg=$1" -s | jq '.[]')
 
   if [ -z "$output" ] ; then
@@ -56,6 +56,7 @@ function fetch() {
     exit
   fi
 
+  echo "fetching the package $1"
   mkdir -p "/tmp/aur/$1"
   git clone "https://aur.archlinux.org/$1.git" "/tmp/aur/$1"
   echo "done"
