@@ -3,6 +3,14 @@
 AUR_URL="https://aur.archlinux.org"
 TMP_DIR="/tmp/aur/"
 
+function validate_package_name() {
+  if [ -z "$1" ] ; then
+    echo "you haven't provided a package name!"
+    exit
+  fi
+}
+
+
 function help() {
   echo "
        aur is a simple script for downloading and installing software packages from aur (aur helper)
@@ -17,13 +25,6 @@ function help() {
        get       fetches and installs the package
        clean     cleans temporary files
        "
-}
-
-function validate_package_name() {
-  if [ -z "$1" ] ; then
-    echo "you haven't provided a package name!"
-    exit
-  fi
 }
 
 function search() {
