@@ -19,25 +19,29 @@ function help() {
        "
 }
 
-function search() {
+function validate_package_name() {
   if [ -z "$1" ] ; then
     echo "you haven't provided a package name!"
     exit
   fi
+}
 
+function search() {
+  validate_package_name $1
   echo "searching for the package $1"
   output=$(curl "$AUR_URL/rpc?type=suggest&arg=$1" -s | jq '.[]')
   if [ -z "$output" ] ; then
     echo "nothing was found"
-  else
-    echo "the following candidates were found:"
-    output_array=($output)
-    for i in "${output_array[@]}"
-    do
-        :
-        echo $i | sed -e 's/^"//' -e 's/"$//'
-    done
+    exit
   fi
+
+  echo "the following candidates were found:"
+  output_array=($output)
+  for i in "${output_array[@]}"
+  do
+      :
+      echo $i | sed -e 's/^"//' -e 's/"$//'
+  done
 }
 
 function newest() {
@@ -46,11 +50,7 @@ function newest() {
 }
 
 function fetch() {
-  if [ -z "$1" ]; then
-    echo "you haven't provided package name!"
-    exit
-  fi
-
+  validate_package_name $1
   echo "searching for the package $1"
   output=$(curl "$AUR_URL/rpc?type=suggest&arg=$1" -s | jq '.[]')
 
@@ -66,11 +66,7 @@ function fetch() {
 }
 
 function install() {
-  if [ -z "$1" ]; then
-    echo "you haven't provided package name!"
-    exit
-  fi
-
+  validate_package_name $1
   echo "checking package $1"
   if [ ! -d "$TMP_DIR/$1" ] ; then
     echo "package is not fetched!"
