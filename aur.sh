@@ -77,7 +77,7 @@ function pkg {
   validate_package_exists_on_aur $1
   echo "contents of PKGBUILD for $1:"
   echo ""
-  curl "$AUR_URL/cgit/aur.git/plain/PKGBUILD?h=$1" -s
+  echo "$output"
 }
 
 function newest {
