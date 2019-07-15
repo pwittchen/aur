@@ -37,7 +37,6 @@ function validate_package_is_fetched {
 function validate_package_has_pkgbuild {
   if [ ! -f "$TMP_DIR/$1/PKGBUILD" ] ; then
     echo "PKBUILD was not found in fetched directory"
-    echo "process failed"
     exit
   fi
 }
