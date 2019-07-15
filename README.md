@@ -11,14 +11,14 @@ installation
 
 ```
 git clone https://github.com/pwittchen/aur.git
-sudo cp aur/aur.sh /usr/local/bin/aur
+cd aur && make install
 ```
 
 uninstallation
 --------------
 
 ```
-sudo rm /usr/local/bin/aur
+make uninstall
 ```
 
 usage
