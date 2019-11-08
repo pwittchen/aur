@@ -1,6 +1,6 @@
 aur.sh
 ======
-a script for downloading and installing packages from [aur.archlinux.org](https://aur.archlinux.org/)
+a script for downloading and installing packages from [aur.archlinux.org](https://aur.archlinux.org/) (aur helper)
 
 requirements
 ------------
