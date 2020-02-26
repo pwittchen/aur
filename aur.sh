@@ -53,6 +53,7 @@ function help {
        newest    shows newest packages
        fetch     fetches a package
        fetched   shows fetched packages
+       deps      shows dependencies of the fetched package
        install   installs a package
        get       fetches and installs the package
        remove    removes installed package via pacman
@@ -66,8 +67,7 @@ function search {
   echo "the following candidates were found:"
   output_array=($output)
   for i in "${output_array[@]}"
-  do
-      :
+  do :
       echo $i | sed -e 's/^"//' -e 's/"$//'
   done
 }
@@ -97,7 +97,17 @@ function fetch {
 }
 
 function fetched {
-  ls -l /tmp/aur
+  ls -1 /tmp/aur
+}
+
+function deps {
+  validate_package_has_pkgbuild $1
+  deps=$(awk '/depends/,/){1}/' "$TMP_DIR/$1/PKGBUILD" | tr -d "'()" | sed 's/makedepends=//g' | sed 's/depends=//g' | tr '\n' ' ' | tr -s ' ')
+  deps_array=($deps)
+  for i in "${deps_array[@]}"
+  do :
+      echo $i
+  done
 }
 
 function install {
@@ -150,6 +160,10 @@ function main {
   fi
   if [ "$1" == "fetched" ] ; then
     fetched
+    exit
+  fi
+  if [ "$1" == "deps" ] ; then
+    deps $2
     exit
   fi
   if [ "$1" == "install" ] ; then
