@@ -52,6 +52,7 @@ function help {
        pkg       shows contents of PKGBUILD file of the package
        newest    shows newest packages
        fetch     fetches a package
+       fetched   shows fetched packages
        install   installs a package
        get       fetches and installs the package
        remove    removes installed package via pacman
@@ -95,6 +96,10 @@ function fetch {
   echo "done"
 }
 
+function fetched {
+  ls -l /tmp/aur
+}
+
 function install {
   validate_package_not_empty $1
   validate_package_is_fetched $1
@@ -124,7 +129,7 @@ function clean {
 
 function main {
   if [ -z "$1" ] || [ "$1" == "help" ] ; then
-    help 
+    help
     exit
   fi
   if [ "$1" == "search" ] ; then
@@ -141,6 +146,10 @@ function main {
   fi
   if [ "$1" == "fetch" ] ; then
     fetch $2
+    exit
+  fi
+  if [ "$1" == "fetched" ] ; then
+    fetched
     exit
   fi
   if [ "$1" == "install" ] ; then
