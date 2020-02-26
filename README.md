@@ -14,6 +14,13 @@ git clone https://github.com/pwittchen/aur.git
 cd aur && make install
 ```
 
+update
+------
+
+```
+cd aur && git pull && make install
+```
+
 uninstallation
 --------------
 
