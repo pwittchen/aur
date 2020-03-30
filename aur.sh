@@ -107,7 +107,12 @@ function fetched {
 
 function deps {
   validate_package_has_pkgbuild $1
-  deps=$(awk '/depends/,/){1}/' "$TMP_DIR/$1/PKGBUILD" | tr -d "'()" | sed 's/makedepends=//g' | sed 's/depends=//g' | tr '\n' ' ' | tr -s ' ')
+  deps=$(awk '/depends/,/){1}/' "$TMP_DIR/$1/PKGBUILD" |
+  tr -d "'()" |
+  sed 's/makedepends=//g' |
+  sed 's/depends=//g' |
+  tr '\n' ' ' |
+  tr -s ' ')
   deps_array=($deps)
   for i in "${deps_array[@]}"
   do :
