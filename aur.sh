@@ -148,17 +148,17 @@ function clean {
 }
 
 function main {
-  [ -z "$1" ] || [ "$1" == "help" ] && help && exit
-  [ "$1" == "search" ] && search $2 && exit
-  [ "$1" == "pkg" ] && pkg $2 && exit
-  [ "$1" == "newest" ] && newest && exit
-  [ "$1" == "fetch" ] && fetch $2 && exit
-  [ "$1" == "fetched" ] && fetched && exit
-  [ "$1" == "deps" ] && deps $2 && exit
-  [ "$1" == "install" ] && install $2 && exit
-  [ "$1" == "get" ] && fetch $2 && install $2 && exit
-  [ "$1" == "remove" ] && remove $2 && exit
-  [ "$1" == "clean" ] && clean && exit
+  [ -z "$1" ] || [ "$1" == "help" ] && help       && exit
+  [ "$1" == "search" ]              && search $2  && exit
+  [ "$1" == "pkg" ]                 && pkg $2     && exit
+  [ "$1" == "newest" ]              && newest     && exit
+  [ "$1" == "fetch" ]               && fetch $2   && exit
+  [ "$1" == "fetched" ]             && fetched    && exit
+  [ "$1" == "deps" ]                && deps $2    && exit
+  [ "$1" == "install" ]             && install $2 && exit
+  [ "$1" == "get" ]                 && fetch $2   && install $2 && exit
+  [ "$1" == "remove" ]              && remove $2  && exit
+  [ "$1" == "clean" ]               && clean      && exit
   echo "wrong argument: $1"
 }
 
