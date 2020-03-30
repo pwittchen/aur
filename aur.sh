@@ -97,6 +97,7 @@ function fetch {
 }
 
 function fetched {
+  [ ! -d $TMP_DIR ] || [ -z "$(ls -A $TMP_DIR)" ] && echo "no fetched packages" && exit
   ls -1 /tmp/aur
 }
 
@@ -138,53 +139,18 @@ function clean {
 }
 
 function main {
-  if [ -z "$1" ] || [ "$1" == "help" ] ; then
-    help
-    exit
-  fi
-  if [ "$1" == "search" ] ; then
-    search $2
-    exit
-  fi
-  if [ "$1" == "pkg" ] ; then
-    pkg $2
-    exit
-  fi
-  if [ "$1" == "newest" ] ; then
-    newest
-    exit
-  fi
-  if [ "$1" == "fetch" ] ; then
-    fetch $2
-    exit
-  fi
-  if [ "$1" == "fetched" ] ; then
-    fetched
-    exit
-  fi
-  if [ "$1" == "deps" ] ; then
-    deps $2
-    exit
-  fi
-  if [ "$1" == "install" ] ; then
-    install $2
-    exit
-  fi
-  if [ "$1" == "get" ] ; then
-    fetch $2
-    install $2
-    exit
-  fi
-  if [ "$1" == "remove" ] ; then
-    remove $2
-    exit
-  fi
-  if [ "$1" == "clean" ] ; then
-    clean
-    exit
-  else
-    echo "wrong argument: $1"
-  fi
+  [ -z "$1" ] || [ "$1" == "help" ] && help && exit
+  [ "$1" == "search" ] && search $2 && exit
+  [ "$1" == "pkg" ] && pkg $2 && exit
+  [ "$1" == "newest" ] && newest && exit
+  [ "$1" == "fetch" ] && fetch $2 && exit
+  [ "$1" == "fetched" ] && fetched && exit
+  [ "$1" == "deps" ] && deps $2 && exit
+  [ "$1" == "install" ] && install $2 && exit
+  [ "$1" == "get" ] && fetch $2 && install $2 && exit
+  [ "$1" == "remove" ] && remove $2 && exit
+  [ "$1" == "clean" ] && clean && exit
+  echo "wrong argument: $1"
 }
 
 main "$@"
