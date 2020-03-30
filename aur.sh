@@ -82,7 +82,11 @@ function pkg {
 
 function newest {
   echo "newest packages:"
-  curl "$AUR_URL/rss/" -s | grep title | tail -n +3 | sed 's/<[^>]*>//g' | sed 's/ //g'
+  curl "$AUR_URL/rss/" -s |
+  grep title |
+  tail -n +3 |
+  sed 's/<[^>]*>//g' |
+  sed 's/ //g'
 }
 
 function fetch {
