@@ -4,41 +4,26 @@ AUR_URL="https://aur.archlinux.org"
 TMP_DIR="/tmp/aur"
 
 function validate_package_not_empty {
-  if [ -z "$1" ] ; then
-    echo "you haven't provided a package name!"
-    exit
-  fi
+  [ -z "$1" ] && echo "you haven't provided a package name!" && exit
 }
 
 function validate_package_exists_in_suggestions {
   echo "searching for the package $1"
   output=$(curl "$AUR_URL/rpc?type=suggest&arg=$1" -s | jq '.[]')
-  if [ -z "$output" ] ; then
-    echo "nothing was found"
-    exit
-  fi
+  [ -z "$output" ] && echo "nothing was found" && exit
 }
 
 function validate_package_exists_on_aur {
   output=$(curl "$AUR_URL/cgit/aur.git/plain/PKGBUILD?h=$1" -s)
-  if [[ $output == *"Invalid branch"* ]] ; then
-    echo "package $1 does not exist on aur"
-    exit
-  fi
+  [[ $output == *"Invalid branch"* ]] && echo "package $1 does not exist on aur" && exit
 }
 
 function validate_package_is_fetched {
-  if [ ! -d "$TMP_DIR/$1" ] ; then
-    echo "package is not fetched!"
-    exit
-  fi
+  [ ! -d "$TMP_DIR/$1" ] && echo "package is not fetched!" && exit
 }
 
 function validate_package_has_pkgbuild {
-  if [ ! -f "$TMP_DIR/$1/PKGBUILD" ] ; then
-    echo "PKBUILD was not found in fetched directory"
-    exit
-  fi
+  [ ! -f "$TMP_DIR/$1/PKGBUILD" ] && echo "PKBUILD was not found in fetched directory" && exit
 }
 
 function help {
