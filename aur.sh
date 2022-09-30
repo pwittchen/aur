@@ -9,7 +9,7 @@ function validate_package_not_empty {
 
 function validate_package_exists_in_suggestions {
   echo "searching for the package $1"
-  output=$(curl "$AUR_URL/rpc?type=suggest&arg=$1" -s | jq '.[]')
+  output=$(curl "$AUR_URL/rpc?v=5&type=suggest&arg=$1" -s | jq '.[]')
   [ -z "$output" ] && echo "nothing was found" && exit
 }
 
